@@ -10,5 +10,4 @@ services:
       MCP_PORT: 8000
       MCP_TRANSPORT: streamable-http
     ports:
-      - "${MCP_PORT:-8000}:8000"
-
+      - "${MCP_BIND:-127.0.0.1}:${MCP_PORT:-8000}:8000"

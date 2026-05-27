@@ -12,13 +12,19 @@ cp .env.example .env
 docker compose up --build -d
 ```
 
-MCP endpoint:
+By default the container binds MCP only to `127.0.0.1` on the server. For a quick SSH-tunnel check:
+
+```bash
+ssh -L 8000:127.0.0.1:8000 root@your-server
+```
+
+Local MCP endpoint:
 
 ```text
 http://localhost:8000/mcp
 ```
 
-Для хостинга обычно ставят reverse proxy с HTTPS и прокидывают наружу:
+Для публичного доступа обычно ставят reverse proxy с HTTPS и прокидывают наружу:
 
 ```text
 https://your-domain.example/mcp
@@ -29,6 +35,8 @@ https://your-domain.example/mcp
 `YOUGILE_API_KEY` - постоянный API-ключ YouGile.
 
 `YOUGILE_API_BASE` - базовый адрес YouGile. По умолчанию `https://yougile.com`. Для коробочной установки укажите ваш `mainPageUrl`, например `https://yougile.example.com`.
+
+`MCP_BIND` - адрес публикации Docker-порта на хосте. По умолчанию `127.0.0.1`, чтобы сервер не был открыт в интернет до настройки reverse proxy.
 
 `MCP_PORT` - порт контейнера, по умолчанию `8000`.
 
