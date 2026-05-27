@@ -30,14 +30,6 @@ http://localhost:8000/mcp
 https://your-domain.example/mcp
 ```
 
-Текущий production-вариант для Codex:
-
-```text
-https://redarmadillo.ru/mcp
-```
-
-Контейнер при этом остаётся доступен только локально на VPS, а внешний доступ закрывается HTTPS и Bearer-токеном на reverse proxy.
-
 ## Подключение к Codex
 
 1. Сохраните Bearer-токен в переменную окружения на машине, где запускается Codex:
@@ -49,7 +41,7 @@ setx YOUGILE_MCP_TOKEN "<token>"
 2. Добавьте MCP-сервер:
 
 ```bash
-codex mcp add yougile --url https://redarmadillo.ru/mcp --bearer-token-env-var YOUGILE_MCP_TOKEN
+codex mcp add yougile --url https://your-domain.example/mcp --bearer-token-env-var YOUGILE_MCP_TOKEN
 ```
 
 3. Перезапустите Codex, чтобы он увидел новую переменную окружения.
