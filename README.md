@@ -30,6 +30,36 @@ http://localhost:8000/mcp
 https://your-domain.example/mcp
 ```
 
+Текущий production-вариант для Codex:
+
+```text
+https://redarmadillo.ru/mcp
+```
+
+Контейнер при этом остаётся доступен только локально на VPS, а внешний доступ закрывается HTTPS и Bearer-токеном на reverse proxy.
+
+## Подключение к Codex
+
+1. Сохраните Bearer-токен в переменную окружения на машине, где запускается Codex:
+
+```powershell
+setx YOUGILE_MCP_TOKEN "<token>"
+```
+
+2. Добавьте MCP-сервер:
+
+```bash
+codex mcp add yougile --url https://redarmadillo.ru/mcp --bearer-token-env-var YOUGILE_MCP_TOKEN
+```
+
+3. Перезапустите Codex, чтобы он увидел новую переменную окружения.
+
+Проверить регистрацию можно так:
+
+```bash
+codex mcp list
+```
+
 ## Переменные окружения
 
 `YOUGILE_API_KEY` - постоянный API-ключ YouGile.
@@ -120,3 +150,10 @@ https://your-domain.example/mcp
 ## Безопасность
 
 Не публикуйте сервер без HTTPS и контроля доступа. MCP endpoint получает возможность работать с YouGile от имени владельца `YOUGILE_API_KEY`, поэтому на публичном хостинге его стоит закрыть авторизацией на reverse proxy или доступом только из доверенной сети.
+
+Для публичного Docker-деплоя рекомендуемый минимум:
+
+- `MCP_BIND=127.0.0.1`, чтобы контейнер не слушал внешний интерфейс напрямую.
+- HTTPS на reverse proxy.
+- Bearer-токен или другой контроль доступа перед `/mcp`.
+- Отдельные секреты для `YOUGILE_API_KEY` и внешнего MCP-доступа.
