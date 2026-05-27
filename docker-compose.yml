@@ -1,0 +1,14 @@
+services:
+  yougile-mcp:
+    build: .
+    container_name: yougile-mcp
+    restart: unless-stopped
+    environment:
+      YOUGILE_API_BASE: ${YOUGILE_API_BASE:-https://yougile.com}
+      YOUGILE_API_KEY: ${YOUGILE_API_KEY}
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: 8000
+      MCP_TRANSPORT: streamable-http
+    ports:
+      - "${MCP_PORT:-8000}:8000"
+

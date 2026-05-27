@@ -1,0 +1,2 @@
+"""YouGile MCP server package."""
+
